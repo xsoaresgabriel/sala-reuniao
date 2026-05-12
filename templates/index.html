@@ -1,1 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sala de Reunião</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Sala de Reunião</h1>
+    </header>
+
+    <div class="status-card" id="statusAgora">Carregando...</div>
+
+    <div class="controls">
+        <input type="date" id="data">
+        <button onclick="irHoje()">📅 Hoje</button>
+    </div>
+
+    <div class="agenda" id="agenda"></div>
+
+</div>
+
+
+<!-- ============================
+     BOTÃO FLUTUANTE MULTI-RESERVA
+     ============================ -->
+<button class="btn-flutuante" id="btn-flutuante" onclick="abrirModalReservaMultipla()">
+    ✅ Reservar horários
+    <span class="btn-flutuante-count" id="btn-flutuante-count">0 horários selecionados</span>
+    <span class="btn-flutuante-cancelar" title="Cancelar seleção" onclick="event.stopPropagation(); limparSelecao();">✕</span>
+</button>
+
+
+<!-- ============================
+     MODAL: RESERVAR HORÁRIO(S)
+     ============================ -->
+<div class="modal-overlay" id="modal-reserva">
+    <div class="modal-box">
+        <div class="modal-icon">🗓️</div>
+        <div class="modal-titulo">Reservar horários</div>
+        <div class="modal-subtitulo">
+            Você está reservando os seguintes horários:
+        </div>
+
+        <div class="lista-horas-reserva" id="lista-horas-reserva"></div>
+
+        <div class="modal-campo">
+            <label>Seu nome</label>
+            <input type="text" id="input-nome" placeholder="Ex: João Silva" autocomplete="off">
+        </div>
+
+        <div class="modal-campo">
+            <label>Crie uma senha para esta reserva</label>
+            <input type="password" id="input-senha" placeholder="Mínimo 3 caracteres" autocomplete="new-password">
+            <div class="modal-dica">
+                💡 Guarde esta senha — você vai precisar dela se quiser cancelar depois.
+            </div>
+        </div>
+
+        <div class="modal-erro" id="erro-reserva"></div>
+
+        <div class="modal-botoes">
+            <button class="btn-cancelar-modal" onclick="fecharModalReserva()">Voltar</button>
+            <button class="btn-confirmar verde" onclick="confirmarReserva()">✅ Confirmar reserva</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- ============================
+     MODAL: CANCELAR RESERVA
+     ============================ -->
+<div class="modal-overlay" id="modal-cancelar">
+    <div class="modal-box">
+        <div class="modal-icon">🔒</div>
+        <div class="modal-titulo">Cancelar reserva</div>
+        <div class="modal-subtitulo">
+            Horário das <strong id="modal-hora-cancelar"></strong> —
+            reservado por <strong id="modal-nome-cancelar"></strong>.
+        </div>
+
+        <div class="aviso-cancelar">
+            ⚠️ Para cancelar, você precisa informar a senha que criou na hora da reserva.
+            Sem ela, não é possível cancelar.
+        </div>
+
+        <div class="modal-campo">
+            <label>Senha da reserva</label>
+            <input type="password" id="input-senha-cancelar" placeholder="Digite sua senha" autocomplete="off">
+        </div>
+
+        <div class="modal-erro" id="erro-cancelar"></div>
+
+        <div class="modal-botoes">
+            <button class="btn-cancelar-modal" onclick="fecharModalCancelar()">Voltar</button>
+            <button class="btn-confirmar vermelho" onclick="confirmarCancelar()">🗑️ Cancelar reserva</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
 
